@@ -8,7 +8,7 @@ SoftwareSerial LCD = SoftwareSerial(255,1);
 const int pingPin = 7;
 
 // Pinged distance
-short in;
+short in, cm;
 
 // Range based on Parallax PING Datasheet
 const short MAX_DISTANCE = 120;
@@ -23,6 +23,7 @@ void setup()
 void loop()
 {
   in = getDistance(pingPin);
+  cm = in * 2.54;
 
   //Clear LCD
   LCD.write(12);
@@ -31,6 +32,8 @@ void loop()
   {
     LCD.print(in);
     LCD.print("in ");
+    LCD.print(cm);
+    LCD.print("cm");
     delay(500);
   }
   else{
