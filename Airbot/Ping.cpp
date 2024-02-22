@@ -4,7 +4,6 @@
 short getDistance(byte pin)
 {
     long duration;
-    short cm;
 
     pinMode(pin, OUTPUT);
     digitalWrite(pin, LOW);
@@ -16,6 +15,6 @@ short getDistance(byte pin)
     pinMode(pin, INPUT);
     duration = pulseIn(pin, HIGH);
     
-    return duration / 29 / 2;
-
+    return duration / 74 / 2.0;
+    
 }

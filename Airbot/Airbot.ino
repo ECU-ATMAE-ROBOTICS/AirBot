@@ -8,7 +8,7 @@ SoftwareSerial LCD = SoftwareSerial(255,1);
 const int pingPin = 7;
 
 // Pinged distance
-short cm;
+short cm, in;
 
 void setup()
 {
@@ -19,17 +19,22 @@ void setup()
 
 void loop()
 {
-  cm = getDistance(pingPin);
+  in = getDistance(pingPin);
+  
+  if (in <120 && in > 0)
+  {
+    LCD.write(12);
 
-  displayDistance(cm);
+    LCD.print(in);
+    LCD.print("in ");
 
-  delay(500);
+    delay(500);
+  }
+  else{
+    LCD.write(12);
+    
+    LCD.print("Out of range");
+    delay(250);
+  }
 }
 
-void displayDistance(short distance)
-{
-  LCD.write(12);
-
-  LCD.print(distance);
-  LCD.print("cm");
-}
