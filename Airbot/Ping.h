@@ -5,5 +5,4 @@
 
 short getDistance(byte pin);
 
-
 #endif
