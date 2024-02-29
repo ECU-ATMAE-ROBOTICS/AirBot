@@ -1,5 +1,14 @@
+#include "SoftwareSerial.h"
 #include "Ping.h"
 
+void displayDistance(short distance, SoftwareSerial lcd){
+  lcd.write(12);
+  
+  lcd.print(distance);
+  lcd.print("in ");
+  lcd.print(distance * 2.54);
+  lcd.print("cm");
+}
 
 short getDistance(byte pin)
 {
