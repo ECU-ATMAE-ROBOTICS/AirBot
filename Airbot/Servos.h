@@ -4,7 +4,7 @@
 #include <Arduino.h>
 #include <Servo.h>
 
-//void Oscillate(Servo motor, short *position, bool dir);
+//void Oscillate(Servo motor);
 void Open(Servo motor);
 void Close(Servo motor);
 

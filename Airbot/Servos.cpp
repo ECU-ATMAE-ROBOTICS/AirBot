@@ -13,9 +13,9 @@
 }*/
 
 void Open(Servo motor) {
-  motor.write(100);
+  motor.write(0);
 }
 
 void Close(Servo motor) {
-  motor.write(30);
+  motor.write(180);
 }

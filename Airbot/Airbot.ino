@@ -1,80 +1,93 @@
 #include "Ping.h"
 #include "Servos.h"
-#include <Servo.h>
-#include <SoftwareSerial.h>
 
-SoftwareSerial LCD = SoftwareSerial(255, 1);
+const int lcdPin = 1;
+SoftwareSerial LCD = SoftwareSerial(255, lcdPin);
 
 // pin number of the sensor's output:
 const int pingPin = 7;
 
 //Servo Pins
-const int pingServoPin = 5, valveServoPin = 9;
+const int pingServoPin = 5, valveServoPin = 2;
 
 //Servos
 Servo pingServo;
 Servo valveServo;
 
-
-
-bool isClosed = true;
+bool valveClosed = true;
 
 // Pinged distance
-short in, cm;
+short in;
 
 // Range based on Parallax PING Datasheet
 const short MAX_DISTANCE = 120;
 
 
 void setup() {
+  //Serial.begin(9600);
+  LCD.begin(9600);
+
   // initialize serial communication:
   pingServo.attach(pingServoPin);
   valveServo.attach(valveServoPin);
 
-  //Initializing servo positions
-  pingServo.write(180);
+  pingServo.write(30);
   Close(valveServo);
 
-  Serial.begin(9600);
-  LCD.begin(9600);
-  delay(1000);
+  LCD.write(12);
+  LCD.print("HELLO :)");
+  delay(2000);
+  LCD.write(12);
+  
 }
 
 void loop() {
-
-  //Test & replace code
-
-  //Rotates the ping servo to 0 degrees
-  for (int pos = 0; pos <= 180 && isClosed; pos += 1) {
-    in = getDistance(pingPin);
-    displayDistance(in, LCD);
-
-    if (in < 4) {
-      Open(pingServo);
-      isClosed = !isClosed;
-      break;
-    }
-
+  //Oscillates the servo
+  for (int pos = 20; pos <= 160 && valveClosed; pos = pos + 1) {
+    delay(20);
     pingServo.write(pos);
-    delay(15);
-  }
-  //Rotates the ping servo to 180 degrees
-  for (int pos = 180; pos >= 0 && isClosed; pos -= 1) {
-    in = getDistance(pingPin);
-    displayDistance(in, LCD);
+    if (pos % 10 == 0) {
+      pingServo.detach();
 
-    if (in < 4) {
-      Open(pingServo);
-      isClosed = !isClosed;
-      break;
+      in = getDistance(pingPin);
+
+      /*
+      if(in < 6)
+      {
+        valveClosed = false;
+      }
+      */
+
+      displayDistance(in, LCD);
+      delay(5);
+      pingServo.attach(pingServoPin);
     }
+  }
 
+  delay(50);
+
+  for (int pos = 160; pos >= 30 && valveClosed; pos = pos - 1) {
+    delay(20);
     pingServo.write(pos);
-    delay(15);
+    if (pos % 10 == 0) {
+      pingServo.detach();
+
+      in = getDistance(pingPin);
+
+      if(in < 6)
+      {
+        //valveClosed = false;
+      }
+
+      displayDistance(in, LCD);
+      delay(5);
+      pingServo.attach(pingServoPin);
+    }
   }
 
-  if(!isClosed){
-    delay(3000);
-    Close(valveServo);
+  if (!valveClosed){
+    pingServo.detach();
+    Open(valveServo);
   }
+  delay(50);
 }

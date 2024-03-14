@@ -7,5 +7,6 @@
 //short getDistance(byte pin);
 void displayDistance(short distance, SoftwareSerial lcd);
 short getDistance(byte pin);
+bool verifyDistance(short distance);
 
 #endif

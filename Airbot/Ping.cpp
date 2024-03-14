@@ -2,8 +2,8 @@
 #include "Ping.h"
 
 void displayDistance(short distance, SoftwareSerial lcd){
+
   lcd.write(12);
-  
   lcd.print(distance);
   lcd.print("in ");
   lcd.print(distance * 2.54);
@@ -24,6 +24,7 @@ short getDistance(byte pin)
     pinMode(pin, INPUT);
     duration = pulseIn(pin, HIGH);
     
-    return duration / 74 / 2.0;
-    
+    return duration / 74 / 2;
 }
+
+bool v
