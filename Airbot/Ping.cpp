@@ -26,5 +26,3 @@ short getDistance(byte pin)
     
     return duration / 74 / 2;
 }
-
-bool v
