@@ -5,7 +5,8 @@
 #include <Servo.h>
 
 //void Oscillate(Servo motor);
-void Open(Servo motor);
+
+//Closes valve servo completely
 void Close(Servo motor);
 
 

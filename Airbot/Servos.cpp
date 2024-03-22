@@ -12,20 +12,10 @@
   }
 }*/
 
-
-
-void Open(Servo motor) {
-  for(int pos = 72; pos >= 0; pos--)
-  {
-    motor.write(pos);
-    delay(15);
-  }
-}
-
 void Close(Servo motor) {
-  for(int pos = 0; pos <= 72; pos++)
+  for(int pos = 65; pos <= 75; pos++)
   {
     motor.write(pos);
-    delay(15);
+    delay(20);
   }
 }

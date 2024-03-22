@@ -30,7 +30,11 @@ void setup() {
   pingServo.write(30);
 
   valveServo.attach(valveServoPin);
+  //valveServo.write(75);
   Close(valveServo);
+
+  delay(100);
+
   valveServo.detach();
 
   delay(15);
@@ -46,7 +50,7 @@ void setup() {
 }
 
 void loop() {
-  //Oscillates the servo
+  //Turn servo to the left slowly
   for (int pos = 30; pos <= 160 && valveClosed; pos = pos + 1) {
     delay(15);
     pingServo.write(pos);
@@ -69,6 +73,8 @@ void loop() {
 
   delay(50);
 
+
+  //Change servo to the right slowly
   for (int pos = 160; pos >= 30 && valveClosed; pos = pos- 1) {
     delay(15);
     pingServo.write(pos);
@@ -93,10 +99,14 @@ void loop() {
   //Activate Valve Servo
   if (!valveClosed && !finished){
     valveServo.attach(valveServoPin);
-    //delay();
-    Open(valveServo);
-    //valveServo.write(70);
+    
+    valveServo.write(0);
     finished = true;
+    delay(500);
+    
+    Close(valveServo);
+    delay(300);
+    valveServo.detach();
   }
   delay(50);
 }
