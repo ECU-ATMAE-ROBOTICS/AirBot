@@ -19,3 +19,11 @@ void Close(Servo motor) {
     delay(20);
   }
 }
+
+void Open(Servo motor) {
+  for(int pos = 65; pos <= 75; pos++)
+  {
+    motor.write(pos);
+    delay(20);
+  }
+}
